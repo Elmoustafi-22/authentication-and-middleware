@@ -128,3 +128,8 @@ export async function fetchAuthUserAction(){
         }
     }
 }
+
+export async function logOutAction() {
+    const getCookies = cookies();
+    (await getCookies).set('token', '')
+}
