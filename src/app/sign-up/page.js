@@ -6,6 +6,7 @@ import CommonFormElement from "@/components/form-element/page";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { registerUserAction }from "@/actions";
 
 function SignUp() {
     const [formData, setFormData] = useState(initialSignUpFormData)
@@ -18,13 +19,16 @@ function SignUp() {
     }
 
     async function handleSignUp(){
-        
+        const result = await registerUserAction(formData);
+        console.log(result)
+
+        if (result?.data) router.push('/sign-in')
     }
 
     return ( 
         <div className="flex flex-col justify-center items-center h-screen">
             <h1 className="text-3xl mb-3">Registration Page</h1>
-            <form>
+            <form action={handleSignUp}>
                 {
                     userRegistrationFormControls.map(formItem => 
                         <div key={formItem.name}>
